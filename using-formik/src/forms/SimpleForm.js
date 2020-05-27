@@ -9,9 +9,16 @@ const SimpleForm = () => {
                 firstName: "",
                 lastName: "",
             }}
-            onSubmit={(values) => {
-                console.log("form values");
-                console.log(values);
+            onSubmit={(values, {setSubmitting}) => {
+
+                // simulating the server
+                setTimeout(() => {
+                    // alert(values);
+                        console.log("form values");
+                        console.log(values);
+                    setSubmitting(false);
+                },
+                    1000);
             }
             }
             validate={validationFunction}
@@ -24,7 +31,8 @@ const SimpleForm = () => {
                      errors,
                      handleBlur, // s touto funkciou sa vyhodnoti napr. validate,
                      // aj ked do pola nic nenapises, len z neho odides
-                     touched
+                     touched,
+                    isSubmitting,
                  }) => (
                     <form onSubmit={handleSubmit}>
                         <input
@@ -44,7 +52,11 @@ const SimpleForm = () => {
                             onBlur={handleBlur}
                         />
 
-                        <button>Submit</button>
+                        {
+                            // Krasne nastavime v onSubmit: setSubmitting, ci sa ma pocas volania nejakeho requestu
+                            // dalej zobrazovat button
+                        }
+                        <button disabled={isSubmitting}>Submit</button>
 
                         {
                             errors.firstName && (
