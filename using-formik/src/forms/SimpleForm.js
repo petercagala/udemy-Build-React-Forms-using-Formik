@@ -1,5 +1,5 @@
 import React from 'react';
-import { Formik} from 'formik';
+import {Formik} from 'formik';
 
 const SimpleForm = () => {
 
@@ -7,53 +7,60 @@ const SimpleForm = () => {
         <Formik
             initialValues={{
                 firstName: "",
-                lastName: "Cagalova",
+                lastName: "",
             }}
             onSubmit={(values) => {
                 console.log("form values");
                 console.log(values);
-                }
+            }
             }
             validate={validationFunction}
         >
             {
-                ({ handleSubmit,
+                ({
+                     handleSubmit,
                      handleChange,
                      values,
-                     errors}) => (
-                     <form onSubmit={handleSubmit}>
-                         <input
-                             type={"text"}
-                             name={"firstName"}
-                             onChange={handleChange}
-                             value={values.firstName}
-                             placeholder={"Enter your firstName"}
-                         />
-                         <input
-                             type={"text"}
-                             name={"lastName"}
-                             onChange={handleChange}
-                             value={values.lastName}
-                             placeholder={"Enter your lastName"}
-                         />
+                     errors,
+                     handleBlur, // s touto funkciou sa vyhodnoti napr. validate,
+                     // aj ked do pola nic nenapises, len z neho odides
+                     touched
+                 }) => (
+                    <form onSubmit={handleSubmit}>
+                        <input
+                            type={"text"}
+                            name={"firstName"}
+                            onChange={handleChange}
+                            value={values.firstName}
+                            placeholder={"Enter your firstName"}
+                            onBlur={handleBlur}
+                        />
+                        <input
+                            type={"text"}
+                            name={"lastName"}
+                            onChange={handleChange}
+                            value={values.lastName}
+                            placeholder={"Enter your lastName"}
+                            onBlur={handleBlur}
+                        />
 
-                         <button>Submit</button>
+                        <button>Submit</button>
 
-                         {
-                             errors.firstName && (
-                                 <div style={{color: 'red'}}>
-                                     {errors.firstName}
-                                 </div>
-                             )
-                         }
-                         {
-                             errors.lastName && (
-                                 <div style={{color: 'blue'}}>
-                                     {errors.lastName}
-                                 </div>
-                             )
-                         }
-                     </form>
+                        {
+                            errors.firstName && (
+                                <div style={{color: 'red'}}>
+                                    {errors.firstName}
+                                </div>
+                            )
+                        }
+                        {
+                            errors.lastName && (
+                                <div style={{color: 'blue'}}>
+                                    {errors.lastName}
+                                </div>
+                            )
+                        }
+                    </form>
                 )
             }
         </Formik>
@@ -64,15 +71,13 @@ const validationFunction = (values) => {
     console.log("cagalpte validationFunction");
     console.log(values);
 
-    let errorsObject = {
+    let errorsObject = {};
 
-    };
-
-    if(!values.firstName) {
+    if (!values.firstName) {
         errorsObject.firstName = "Please, enter firstName";
     }
 
-    if(!values.lastName) {
+    if (!values.lastName) {
         errorsObject.lastName = "Please, enter lastName";
     }
 
