@@ -10,6 +10,20 @@ const formikWraper = withFormik({
                 topics: []
             }
         ),
+        handleSubmit: (values, {setSubmitting}) => {
+            const payload = {
+                ...values,
+                topics: values.topics.map(t => t.value)
+            };
+
+            setTimeout(() => {
+                    alert(JSON.stringify(payload, null, 2));
+
+                    setSubmitting(false);
+                },
+                3000
+            )
+        },
     }
 );
 
@@ -44,10 +58,14 @@ const _SignupForm = (props) => {
         handleBlur,
         setFieldValue,
         setFieldTouched,
+        handleSubmit,
+        handleReset,
+        isSubmitting,
+        dirty, // the current values are diffrent from the initial values
     } = props;
 
     return (
-        <form className={"p-5"}>
+        <form className={"p-5"} onSubmit={handleSubmit}>
             <h1>
                 Sign up Form
             </h1>
@@ -87,10 +105,22 @@ const _SignupForm = (props) => {
             </div>
 
             <span className={"pr-1"}>
-                <button className={"btn btn-secondary"}>Reset</button>
+                <button
+                    className={"btn btn-secondary"}
+                    disabled={!dirty || isSubmitting}
+                    onClick={handleReset}
+                >
+                    Reset
+                </button>
             </span>
             <span className={"pr-1"}>
-                <button type={"submit"} className={"btn btn-primary"}>Submit</button>
+                <button
+                    type={"submit"}
+                    className={"btn btn-primary"}
+                    disabled={isSubmitting}
+                >
+                    Submit
+                </button>
             </span>
         </form>
     );
