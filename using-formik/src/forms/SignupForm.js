@@ -1,6 +1,7 @@
 import React from 'react';
 import DropList from './DropList';
 import {withFormik} from 'formik';
+import * as Yup from 'yup';
 
 const formikWraper = withFormik({
         mapPropsToValues: () => (
@@ -24,6 +25,19 @@ const formikWraper = withFormik({
                 3000
             )
         },
+        validationSchema: Yup.object().shape({
+            userName: Yup.string().required('Please, enter a user name'),
+            email: Yup.string()
+                .email('Please, enter a valid email-adress')
+                .required('Please, enter your email'),
+            topics: Yup.array()
+                .min(3, 'Please, select minimal 3 items')
+                .of(Yup.object().shape({
+                    value: Yup.string().required(),
+                    label: Yup.string().required(),
+                })),
+
+        }),
     }
 );
 
