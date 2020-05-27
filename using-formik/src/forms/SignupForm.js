@@ -1,7 +1,21 @@
 import React from 'react';
 import DropList from './DropList';
+import {withFormik} from 'formik';
 
-const signupForm = () => {
+const formikWraper = withFormik({
+        mapPropsToValues: () => (
+            {
+                userName: '',
+                email: '',
+                topics:[
+
+                ]
+            }
+        ),
+    }
+);
+
+const SignupForm = () => {
     return (
         <form className={"p-5"}>
             <h1>
@@ -28,7 +42,7 @@ const signupForm = () => {
 
             <div className={"form-group"}>
                 <label>Favourite topics</label>
-                <DropList />
+                <DropList/>
             </div>
 
             <span className={"pr-1"}>
@@ -41,4 +55,5 @@ const signupForm = () => {
     );
 };
 
-export default signupForm;
+const EnhancedForm = formikWraper(SignupForm);
+export default SignupForm;
