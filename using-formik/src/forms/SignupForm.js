@@ -1,7 +1,8 @@
 import React from 'react';
 import DropList from './DropList';
-import {withFormik} from 'formik';
+import {withFormik, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
+import Error from './Error';
 
 const formikWraper = withFormik({
         mapPropsToValues: () => (
@@ -94,6 +95,10 @@ const _SignupForm = (props) => {
                     placeholder={"Enter Username"}
                     className={"form-control"}
                 />
+                <ErrorMessage
+                    component={Error}
+                    name={"userName"}
+                />
             </div>
             <div className={"form-group"}>
                 <label>Email:</label>
@@ -106,6 +111,10 @@ const _SignupForm = (props) => {
                     placeholder={"Enter your email"}
                     className={"form-control"}
                 />
+                <ErrorMessage
+                    component={Error}
+                    name={"email"}
+                />
             </div>
 
             <div className={"form-group"}>
@@ -115,6 +124,10 @@ const _SignupForm = (props) => {
                     onChange={setFieldValue}
                     onBlur={setFieldTouched}
                     options={options}
+                />
+                <ErrorMessage
+                    component={Error}
+                    name={"topics"}
                 />
             </div>
 
