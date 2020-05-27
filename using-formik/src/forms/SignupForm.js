@@ -1,4 +1,5 @@
 import React from 'react';
+import DropList from './DropList';
 
 const signupForm = () => {
     return (
@@ -24,6 +25,12 @@ const signupForm = () => {
                     className={"form-control"}
                 />
             </div>
+
+            <div className={"form-group"}>
+                <label>Favourite topics</label>
+                <DropList />
+            </div>
+
             <span className={"pr-1"}>
                 <button className={"btn btn-secondary"}>Reset</button>
             </span>
