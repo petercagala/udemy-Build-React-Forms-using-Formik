@@ -1,6 +1,6 @@
 import React from 'react';
 import DropList from './DropList';
-import {withFormik, ErrorMessage} from 'formik';
+import {withFormik, ErrorMessage, Field, Form} from 'formik';
 import * as Yup from 'yup';
 import Error from './Error';
 
@@ -69,29 +69,32 @@ const _SignupForm = (props) => {
 
     const {
         values,
-        handleChange,
-        handleBlur,
+        // handleChange,
+        // handleBlur,
         setFieldValue,
         setFieldTouched,
-        handleSubmit,
+        // handleSubmit,
         handleReset,
         isSubmitting,
         dirty, // the current values are diffrent from the initial values
     } = props;
 
     return (
-        <form className={"p-5"} onSubmit={handleSubmit}>
+        <Form
+            className={"p-5"}
+            // onSubmit={handleSubmit} pri zmene <form> na <Form> z formiku mozeme toto vyhodit
+        >
             <h1>
                 Sign up Form
             </h1>
             <div className={"form-group"}>
                 <label>User Name</label>
-                <input
+                <Field
                     name={"userName"}
                     type={"text"}
-                    value={values.userName}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
+                    // value={values.userName}
+                    // onChange={handleChange}
+                    // onBlur={handleBlur}
                     placeholder={"Enter Username"}
                     className={"form-control"}
                 />
@@ -102,12 +105,12 @@ const _SignupForm = (props) => {
             </div>
             <div className={"form-group"}>
                 <label>Email:</label>
-                <input
+                <Field
                     name={"email"}
                     type={"email"}
-                    value={values.email}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
+                    // value={values.email}
+                    // onChange={handleChange}
+                    // onBlur={handleBlur}
                     placeholder={"Enter your email"}
                     className={"form-control"}
                 />
@@ -149,7 +152,7 @@ const _SignupForm = (props) => {
                     Submit
                 </button>
             </span>
-        </form>
+        </Form>
     );
 };
 
