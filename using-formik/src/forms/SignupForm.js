@@ -7,15 +7,45 @@ const formikWraper = withFormik({
             {
                 userName: '',
                 email: '',
-                topics:[
-
-                ]
+                topics: []
             }
         ),
     }
 );
 
-const SignupForm = () => {
+const options = [
+    {
+        value: "Art",
+        label: "Art",
+    },
+    {
+        value: "Sport",
+        label: "Sport",
+    },
+    {
+        value: "Technology",
+        label: "Technology",
+    },
+    {
+        value: "Machine learning",
+        label: "Machine learning",
+    },
+    {
+        value: "Science",
+        label: "Science",
+    },
+];
+
+const _SignupForm = (props) => {
+
+    const {
+        values,
+        handleChange,
+        handleBlur,
+        setFieldValue,
+        setFieldTouched,
+    } = props;
+
     return (
         <form className={"p-5"}>
             <h1>
@@ -26,6 +56,9 @@ const SignupForm = () => {
                 <input
                     name={"userName"}
                     type={"text"}
+                    value={values.userName}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
                     placeholder={"Enter Username"}
                     className={"form-control"}
                 />
@@ -35,6 +68,9 @@ const SignupForm = () => {
                 <input
                     name={"email"}
                     type={"email"}
+                    value={values.email}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
                     placeholder={"Enter your email"}
                     className={"form-control"}
                 />
@@ -42,7 +78,12 @@ const SignupForm = () => {
 
             <div className={"form-group"}>
                 <label>Favourite topics</label>
-                <DropList/>
+                <DropList
+                    value={values.topics}
+                    onChange={setFieldValue}
+                    onBlur={setFieldTouched}
+                    options={options}
+                />
             </div>
 
             <span className={"pr-1"}>
@@ -55,5 +96,5 @@ const SignupForm = () => {
     );
 };
 
-const EnhancedForm = formikWraper(SignupForm);
+const SignupForm = formikWraper(_SignupForm);
 export default SignupForm;
